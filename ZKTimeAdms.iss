@@ -5,14 +5,16 @@ DefaultDirName={pf}\ZKTimeAdms
 OutputBaseFilename=ZKTimeAdmsInstaller
 SetupIconFile=app_icon.ico
 PrivilegesRequired=admin
-DisableProgramGroupPage=yes
+DisableProgramGroupPage=no
 DisableStartupPrompt=yes
 
 [Files]
 Source: "dist\ZKTimeAdms.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "app_icon.ico"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\ZKTimeAdms"; Filename: "{app}\ZKTimeAdms.exe"; IconFilename: "{app}\app_icon.ico"
+Name: "{commondesktop}\ZKTime ADMS"; Filename: "{app}\ZKTimeAdms.exe"; IconFilename: "{app}\app_icon.ico"
 
 [Run]
 Filename: "{app}\ZKTimeAdms.exe"; Description: "Start ZKTimeAdms"; Flags: nowait postinstall
