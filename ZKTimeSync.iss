@@ -18,12 +18,19 @@ Name: "{group}\ZKTimeSync"; Filename: "{app}\ZKTimeSync.exe"; IconFilename: "{ap
 Filename: "{app}\ZKTimeSync.exe"; Description: "Start ZKTimeSync"; Flags: nowait postinstall
 
 [Code]
-// Auto add to startup + firewall
+var
+  ResultCode: Integer;
+
 procedure CurStepChanged(CurStep: TSetupStep);
 begin
   if CurStep = ssPostInstall then
   begin
-    Exec('reg', 'add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "ZKTimeSync" /t REG_SZ /d "' + ExpandConstant('{app}\ZKTimeSync.exe') + '" /f', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-    Exec('netsh', 'advfirewall firewall add rule name="ZK ADMS 5015" dir=in action=allow protocol=TCP localport=5015', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+    // Add to Windows startup
+    Exec('reg', 'add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "ZKTimeSync" /t REG_SZ /d "' +
+         ExpandConstant('{app}\ZKTimeSync.exe') + '" /f', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+
+    // Add firewall rule to allow port 5015
+    Exec('netsh', 'advfirewall firewall add rule name="ZK ADMS 5015" dir=in action=allow protocol=TCP localport=5015',
+         '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
   end;
 end;
