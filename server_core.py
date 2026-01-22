@@ -53,7 +53,7 @@ def start_server(log_fn):
 
                 try:
                     requests.post(LARAVEL_URL, data=postData, headers={'User-Agent': 'PostmanRuntime/7.40.0'}, timeout=5, verify=False)
-                    log_fn(f"  --> [SUCCESS] Forwarded to Laravel")
+                    log_fn(f"  --> [SUCCESS] Forwarded to Server")
                 except Exception as e:
                     log_fn(f"  --> [ERROR] API Fail: {e}")
 

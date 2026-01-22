@@ -36,7 +36,7 @@ class ServerApp:
 
         # Developer info
         tk.Button(root, text="ℹ", width=3, font=("Arial", 10, "bold"),
-                  command=lambda: messagebox.showinfo("Developer Info", "M. Estiaque Ahmed Khan\nNatore IT")).pack(pady=5)
+                  command=lambda: messagebox.showinfo("Developer Info", "M. Estiaque Ahmed Khan\nNatore IT (natoreit.com)")).pack(pady=5)
 
         # Start server thread
         t = threading.Thread(target=start_server, args=(self.log,), daemon=True)
