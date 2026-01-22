@@ -1,4 +1,4 @@
-name: Build ZKTime Sync Installer
+name: Build ZKTime ADMS Installer
 
 on:
   push:
@@ -32,7 +32,7 @@ jobs:
         run: |
           if (Test-Path "dist") { Remove-Item -Recurse -Force dist }
           if (Test-Path "build") { Remove-Item -Recurse -Force build }
-          pyinstaller --onefile --windowed --name ZKTimeSync `
+          pyinstaller --onefile --windowed --name ZKTimeAdms `
             --icon app_icon.ico `
             app.py
 
@@ -42,20 +42,20 @@ jobs:
 
       - name: Build Installer
         shell: pwsh
-        run: iscc ZKTimeSync.iss
+        run: iscc ZKTimeAdms.iss
 
       - name: Upload Installer Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ZKTimeSyncInstaller
-          path: Output/ZKTimeSyncInstaller.exe
+          name: ZKTimeAdmsInstaller
+          path: Output/ZKTimeAdmsInstaller.exe
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: Output/ZKTimeSyncInstaller.exe
-          name: ZKTime Sync ${{ github.ref_name }}
+          files: Output/ZKTimeAdmsInstaller.exe
+          name: ZKTime ADMS ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
