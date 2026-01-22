@@ -20,7 +20,7 @@ def get_ip():
 class ServerApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("G4 Pro ADMS Proxy")
+        self.root.title("ZKTime ADMS Proxy")
         self.root.geometry("600x400")
         self.root.resizable(False, False)
 
