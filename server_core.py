@@ -10,7 +10,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 HOST = '0.0.0.0'
 PORT = 5015
-LARAVEL_URL = "https://payrool.nitbd.com/iclock/cdata/"
+LARAVEL_URL = "https://pr.nitbd.com/iclock/cdata/"
 
 verifyTypes = {'0':'Password/Other','1':'Fingerprint','2':'Card','3':'Password','15':'Face','25':'Palm'}
 
