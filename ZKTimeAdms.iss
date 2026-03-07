@@ -1,6 +1,7 @@
 [Setup]
 AppName=ZKTimeAdms
 AppVersion=1.0
+AppPublisher=M. ESTIAQUE
 DefaultDirName={pf}\ZKTimeAdms
 OutputBaseFilename=ZKTimeAdmsInstaller
 SetupIconFile=app_icon.ico

@@ -49,23 +49,23 @@ def start_server(log_fn):
                     'type_name': verifyTypes.get(vtype_match.group(1) if vtype_match else '0', 'Other')
                 }
 
-                log_fn(f"  --> [Data] User: {postData['user_id']} | Type: {postData['type_name']}")
+                log_fn(f"  --> [Data:{timestamp}] User: {postData['user_id']} | Type: {postData['type_name']}")
 
                 try:
                     requests.post(LARAVEL_URL, data=postData, headers={'User-Agent': 'PostmanRuntime/7.40.0'}, timeout=5, verify=False)
-                    log_fn(f"  --> [SUCCESS] Forwarded to Server")
+                    log_fn(f"  --> [SUCCESS:{timestamp}] Forwarded to Server")
                 except Exception as e:
-                    log_fn(f"  --> [ERROR] API Fail: {e}")
+                    log_fn(f"  --> [ERROR:{timestamp}] API Fail: {e}")
 
                 response_body = "OK"
 
             # 2. Handshake / registry
             elif "options=all" in raw_str or "/iclock/registry" in raw_str:
-                log_fn(f"  --> [HANDSHAKE] Sending RegistryCode and Config...")
+                log_fn(f"  --> [HANDSHAKE:{timestamp}] Sending RegistryCode and Config...")
                 response_body = "RegistryCode=None\nServerVersion=3.1.1\nServerName=ADMS\nPushVersion=3.1.1\nErrorDelay=60\nDelay=30\nTransInterval=1\nTransFlag=1111111111\nRealtime=1\nEncrypt=0"
 
             else:
-                log_fn(f"  --> [HEARTBEAT] Sending OK")
+                log_fn(f"  --> [HEARTBEAT:{timestamp}] Sending OK")
                 response_body = "OK"
 
             # 3. HTTP response
@@ -79,7 +79,7 @@ def start_server(log_fn):
 
             client.sendall(http_res.encode())
             client.close()
-            log_fn(f"  --> [CLOSE] Response Sent.\n")
+            log_fn(f"  --> [CLOSE:{timestamp}] Response Sent.\n")
 
         except Exception as e:
-            log_fn(f"  --> [SYSTEM ERROR] {e}")
+            log_fn(f"  --> [SYSTEM ERROR:{timestamp}] {e}")
