@@ -37,9 +37,9 @@ class ServerApp:
         self.log_box = scrolledtext.ScrolledText(root, width=75, height=20)
         self.log_box.pack(padx=10, pady=5)
 
-                # Single bottom info button.
-                tk.Button(root, text="ℹ", width=3, font=("Arial", 10, "bold"),
-                                    command=self.show_info).pack(pady=5)
+        # Single bottom info button.
+        tk.Button(root, text="ℹ", width=3, font=("Arial", 10, "bold"),
+              command=self.show_info).pack(pady=5)
 
         # Start server thread
         t = threading.Thread(target=start_server, args=(self.log,), daemon=True)
