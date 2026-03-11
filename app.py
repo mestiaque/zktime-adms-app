@@ -29,7 +29,7 @@ class ServerApp:
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
 
         # IP & Port display
-        tk.Label(root, text=f"IP: {get_ip()}  |  Port: {PORT}", font=("Arial", 12, "bold")).pack(pady=5)
+        tk.Label(root, text=f"IP: {get_ip()}  |  Port: {server_core.PORT}", font=("Arial", 12, "bold")).pack(pady=5)
 
         # URL is intentionally hidden from the UI; edit is only via shortcut.
 
@@ -42,9 +42,9 @@ class ServerApp:
               command=self.show_info).pack(pady=5)
 
         # Start server thread
-        t = threading.Thread(target=start_server, args=(self.log,), daemon=True)
+        t = threading.Thread(target=server_core.start_server, args=(self.log,), daemon=True)
         t.start()
-        self.log(f"Server started on {HOST}:{PORT}")
+        self.log(f"Server started on {server_core.HOST}:{server_core.PORT}")
 
         # Bind Ctrl+Alt+A to edit URL
         self.root.bind_all("<Control-Alt-a>", lambda e: self.edit_url())
