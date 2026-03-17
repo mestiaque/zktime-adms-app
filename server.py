@@ -10,6 +10,7 @@ Run:
 """
 
 import os
+import sys
 import logging
 import threading
 from datetime import datetime
@@ -75,7 +76,19 @@ HANDSHAKE_RESPONSE = (
 
 
 # ── Logging Setup ──────────────────────────────────────────────────────────────
-os.makedirs("logs", exist_ok=True)
+# When frozen as a PyInstaller EXE the working directory may be read-only
+# (e.g. C:\Program Files\).  Always write logs to a user-writable location.
+if getattr(sys, "frozen", False):
+    # Running as compiled EXE → %APPDATA%\ZKTimeAdms\logs
+    _LOG_DIR = os.path.join(
+        os.environ.get("APPDATA", os.path.expanduser("~")),
+        "ZKTimeAdms", "logs",
+    )
+else:
+    # Running as plain Python script → ./logs
+    _LOG_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs")
+
+os.makedirs(_LOG_DIR, exist_ok=True)
 
 
 def _file_logger(name: str, path: str) -> logging.Logger:
@@ -94,9 +107,9 @@ def _file_logger(name: str, path: str) -> logging.Logger:
     return logger
 
 
-att_log = _file_logger("attendance", "logs/attendance.log")
-acc_log = _file_logger("access",     "logs/access.log")
-err_log = _file_logger("error",      "logs/error.log")
+att_log = _file_logger("attendance", os.path.join(_LOG_DIR, "attendance.log"))
+acc_log = _file_logger("access",     os.path.join(_LOG_DIR, "access.log"))
+err_log = _file_logger("error",      os.path.join(_LOG_DIR, "error.log"))
 
 
 # ── Flask App ──────────────────────────────────────────────────────────────────
